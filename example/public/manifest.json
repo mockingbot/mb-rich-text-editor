@@ -1,0 +1,8 @@
+{
+  "short_name": "mb-rich-text-editor",
+  "name": "mb-rich-text-editor",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
