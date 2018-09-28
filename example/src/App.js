@@ -1,12 +1,33 @@
 import React, { Component } from 'react'
 
-import ExampleComponent from 'mb-rich-text-editor'
+import Editor, { editorBridge } from 'mb-rich-text-editor'
+
+const initialText = 'Tell us a fairy tale ;>'
+const text = {
+  paras: [{
+    paraSpacing: 5,
+    children: [{
+      text: initialText,
+      fontSize: 20,
+      fontFamily: 'Courier New',
+      color: '#333'
+    }]
+  }],
+  selection: {
+    start: [0,0,0],
+    end: [0,0,0],
+  }
+}
 
 export default class App extends Component {
-  render () {
+  render() {
     return (
-      <div>
-        <ExampleComponent text='Modern React component module' />
+      <div className="">
+        <Editor
+          store={text}
+        />
+        <button onClick={() => editorBridge.setRich('color', '#999')}></button>
+        <button onClick={() => console.log(editorBridge.getStore())}></button>
       </div>
     )
   }

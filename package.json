@@ -4,7 +4,7 @@
   "description": "",
   "author": "Xdudu",
   "license": "MIT",
-  "repository": "",
+  "repository": "https://github.com/mockingbot/mb-rich-text-editor",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
@@ -56,5 +56,10 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "measure-normal-line-height": "1.0.1",
+    "postcss-nested": "^4.1.0",
+    "stop-react-event-propagation": "1.0.1"
+  }
 }

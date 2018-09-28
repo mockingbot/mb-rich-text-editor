@@ -1,22 +1,18 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 
-import styles from './styles.css'
+import Editor from './Editor'
+import { editorBridgeBuilder } from './bridge'
 
-export default class ExampleComponent extends Component {
-  static propTypes = {
-    text: PropTypes.string
-  }
 
+export default class RichTextEditor extends React.Component {
   render() {
-    const {
-      text
-    } = this.props
-
-    return (
-      <div className={styles.test}>
-        Example Component: {text}
-      </div>
-    )
+    return <Editor {...this.props} editorBridgeBuilder={editorBridgeBuilder} />
   }
 }
+
+
+export { getHTML } from './utils/style'
+
+export { configureEditor } from './config'
+
+export { editorBridge } from './bridge'

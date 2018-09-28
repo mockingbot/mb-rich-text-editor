@@ -1,0 +1,9 @@
+.--mb--rich-text-editor {
+  outline: none;
+  border-color: transparent;
+  user-select: text;
+
+  p:last-child {
+    margin-bottom: 0 !important;
+  }
+}
