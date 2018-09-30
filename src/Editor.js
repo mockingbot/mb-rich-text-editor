@@ -389,6 +389,7 @@ export default class RichTextEditor extends React.Component {
         dangerouslySetInnerHTML={{ __html: getHTML(paras) }}
         ref={editor => this.$editor = editor}
         className={EDITOR_CLASS_NAME}
+        style={this.props.style}
         onKeyDown={this.handleKeyDown}
         onCompositionStart={this.handleCompositionStart}
         onCompositionEnd={this.handleCompositionEnd}
@@ -403,6 +404,7 @@ export default class RichTextEditor extends React.Component {
 }
 
 RichTextEditor.propTypes = {
+  style: PropTypes.object,
   store: PropTypes.object,
   handleInput: PropTypes.func,
   editorBridgeBuilder: PropTypes.func,
