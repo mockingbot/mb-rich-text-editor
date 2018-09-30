@@ -71,26 +71,7 @@ const isSpanInsideBoundary = (pi, si, { start: [ spi, ssi ], end: [ epi, esi ] }
   const m = Math.max(si, ssi, esi) + 1
   return pi*m + si >= spi*m + ssi && pi*m + si <= epi*m + esi
 }
-//
-// export const newParasAfterBoundaryAttrSet = ({ boundary, paras, attr, value }) => {
-//   return paras.map((p, pi) => {
-//     const spans = p.children.map((s, si) => {
-//       if (isSpanInsideBoundary(pi, si, boundary)) {
-//         return {
-//           ...s,
-//           [attr]: value,
-//         }
-//       } else {
-//         return { ...s }
-//       }
-//     })
-//     return {
-//       paraSpacing: p.paraSpacing,
-//       children: spans
-//     }
-//   })
-// }
-//
+
 const attrsThatAffectLineHeight = ['fontFamily', 'fontSize']
 const checkIfLineHeightIsNormal = (fontFamily, fontSize, lineHeight) => {
   const normalLineHeight = measureNormalLineHeight(fontFamily, fontSize)
@@ -174,7 +155,7 @@ const setLineHeight = ({ paras, boundary, value }) => {
     }
   })
 }
-//
+
 const setParaSpacing = ({ paras, boundary, value }) => {
   return paras.map((p, pi) => {
     const paraSpacing =
@@ -186,8 +167,6 @@ const setParaSpacing = ({ paras, boundary, value }) => {
     }
   })
 }
-//
-// export const shouldSetThroughText = attr => [ 'text', ...INLINE_ATTRS, LINE_HEIGHT_ATTR, PARA_SPACING_ATTR ].includes(attr)
 
 export const setParasAttr = ({ paras, boundary, attr, value }) => {
   let newParas, newBoundary
@@ -210,114 +189,10 @@ export const setParasAttr = ({ paras, boundary, attr, value }) => {
   }
 }
 
-// const attrsThatNotAffectSize = ['color']
-
-// export const undoableSetRichText = (items, attr, value, historyManageType = 'add') => {
-//   const newItems = []
-//
-//   items.forEach(item => {
-//     let newItem
-//
-//     if (item.name !== 'rich_text') {
-//       newItem = setAttrForOtherComponent({ attr, value, item })
-//       if (newItem) {
-//         newItem.lsave()
-//         newItems.push(newItem)
-//       }
-//     } else {
-//       newItem = item.dup()
-//
-//       if (attr === 'text') {
-//         newItem.text = value
-//       } else {
-//         const paras = JSON.parse(newItem.text)
-//         const { paras: newParas } = setParasAttr({ paras, attr, value })
-//         newItem.text = JSON.stringify(newParas)
-//       }
-//
-//       if (newItem.text === item.text) return
-//
-//       if (!attrsThatNotAffectSize.includes(attr)) {
-//         if (item.size_type === 0) {
-//           const autoSize = getAutoSize(newItem)
-//           const dx = adjustLeftForAlignment(item.width, autoSize.width, item.ha)
-//           newItem.left += dx
-//           newItem.width = autoSize.width
-//           newItem.height = autoSize.height
-//         } else if (item.size_type === 2) {
-//           const autoHeight = getAutoHeight(newItem)
-//           newItem.height = autoHeight
-//         }
-//       }
-//
-//       newItem.lsave()
-//       newItems.push(newItem)
-//     }
-//   })
-//
-//   if (historyManageType === 'add' && newItems.length > 0) {
-//     const cachedItems = items.map(item => item.dup())
-//     $('body').trigger('undoStack:add', [ cachedItems, newItems ])
-//   } else if (historyManageType === 'replaceLast') {
-//     $('body').trigger('undoStack:add:continous', [ newItems ])
-//   }
-//
-//   return newItems
-// }
-//
-// const adjustLeftForAlignment = (prevW, newW, alignment) => {
-//   switch (alignment) {
-//     case 'center':
-//       return Math.round((prevW - newW) / 2)
-//     case 'right':
-//       return Math.round(prevW - newW)
-//     default:
-//       return 0
-//   }
-// }
-//
-// const setAttrForOtherComponent = ({ attr, value, item }) => {
-//   const attrName = ATTR_NAME_FOR_OTHER_COMPONENT[attr] || attr
-//   return setAttr(attrName, value, [ item ])[0]
-// }
-//
-// const ATTR_NAME_FOR_OTHER_COMPONENT = {
-//   'fontSize': 'fs',
-//   'color': 'tc',
-//   'textDecoration': 'td',
-//   'lineHeight': 'lh'
-// }
-//
 const INLINE_ATTRS = ['fontFamily', 'fontWeight', 'boldType', 'fontSize', 'color', 'fontStyle', 'textDecoration', 'letterSpacing']
 const LINE_HEIGHT_ATTR = 'lineHeight'
 const PARA_SPACING_ATTR = 'paraSpacing'
-//
-// const setSizeType = (value, items) => {
-//   const newItems = []
-//
-//   items.forEach(item => {
-//     if (!item.inspectables().includes('size_type')) return
-//
-//     const newItem = item.dup()
-//
-//     if (value === 0 && item.size_type !== 0) { // width fixed -> auto
-//       newItem.size_type = 0
-//
-//       const { width, height } = getAutoSize(item)
-//       newItem.width = width
-//       newItem.height = height
-//
-//       newItem.lsave()
-//       newItems.push(newItem)
-//     } else if (value !== 0 && item.size_type === 0) { // auto -> width fixed
-//       newItem.size_type = 2
-//
-//       newItem.lsave()
-//       newItems.push(newItem)
-//     }
-//   })
-//
-//   return newItems
-// }
-//
-// export const undoableSetSizeType = createUndoableOperation(setSizeType)
+
+export const checkIsAttrManagedInsideEditor = attr => (
+  [ 'text', ...INLINE_ATTRS, LINE_HEIGHT_ATTR, PARA_SPACING_ATTR ].includes(attr)
+)

@@ -11,7 +11,12 @@ export default class RichTextEditor extends React.Component {
 }
 
 
+export { getRichTextAttr } from './utils/attr'
 export { getHTML } from './utils/style'
+export { 
+  setParasAttr as setAttrForParas,
+  checkIsAttrManagedInsideEditor
+} from './utils/operation'
 
 export { configureEditor } from './config'
 

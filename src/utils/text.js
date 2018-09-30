@@ -20,29 +20,3 @@ export const getUnescapedText = text => {
   )
   return unescapedText
 }
-
-// const isWidgetRichText = w => w.name === 'rich_text'
-//
-// export const compressRichText = w => {
-//   if (!isWidgetRichText(w)) return w
-//
-//   const compressedRichText = { ...w, text: compress(w.text) }
-//
-//   try {
-//     JSON.parse(decompressRichText(compressedRichText).text)
-//   } catch (error) {
-//     REPORT_ERROR(
-//       error,
-//       w.cid,
-//       w.text,
-//       compressedRichText.text,
-//       decompressRichText(compressedRichText).text
-//     )
-//   }
-//
-//   return compressedRichText
-// }
-//
-// export const decompressRichText = w => {
-//   return isWidgetRichText(w) ? { ...w, text: decompress(w.text) } : w
-// }
