@@ -1,5 +1,5 @@
 import { configs } from '../config'
-import { EDITOR_CLASS_NAME as INSIDE_CONTENT_SYMBOL } from '../constant'
+import { EDITOR_INLINE_SPAN_CLASS_NAME } from '../constant'
 
 import { getSingleSpanAttr } from './attr'
 import { getEscapedText } from './text'
@@ -75,7 +75,7 @@ export const getHTML = (paras, selection, getPlainTextAlso) => {
 
       const escapedText = getEscapedText(text)
       spansHTMLArr.push(
-        `<span class="${INSIDE_CONTENT_SYMBOL}" data-boldtype="${getSingleSpanAttr(s, 'boldType')}" style="${genInlineStyle(genSpanStyle(s))}">${s.text === '' ? '<br>' : escapedText}</span>`
+        `<span class="${EDITOR_INLINE_SPAN_CLASS_NAME}" data-boldtype="${getSingleSpanAttr(s, 'boldType')}" style="${genInlineStyle(genSpanStyle(s))}">${s.text === '' ? '<br>' : escapedText}</span>`
       )
       if (getPlainTextAlso) plainText += text // plain text does not have to escape
 
