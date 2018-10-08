@@ -26,7 +26,7 @@ export default class App extends Component {
         <Editor
           store={text}
         />
-        <button onClick={() => editorBridge.setRich('color', '#999')}></button>
+        <button onClick={() => editorBridge.setAttr('color', '#999')}></button>
         <button onClick={() => console.log(editorBridge.getStore())}></button>
       </div>
     )

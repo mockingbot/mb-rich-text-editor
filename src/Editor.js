@@ -73,7 +73,7 @@ export default class RichTextEditor extends React.Component {
 
   getPresentState = () => this.state.present
 
-  pushPresentState = stateToSet => {
+  pushPresentState = stateToSet => new Promise((resolve, reject) => {
     const { past, present } = this.state
     const newPast = [ ...past, present ]
 
@@ -83,8 +83,8 @@ export default class RichTextEditor extends React.Component {
       past: newPast,
       present: stateToSet,
       future: []
-    })
-  }
+    }, resolve)
+  })
 
   componentDidMount() {
     this.buildEditorBridge(this.props.editorBridgeBuilder)
@@ -137,8 +137,6 @@ export default class RichTextEditor extends React.Component {
 
     resolve()
   })
-
-  popSelectionChange = () => this.props.onSelectionChange && this.props.onSelectionChange()
 
   handleSetRichAttr = (attr, value, manageHistoryInUndo = 'add') => {
     const { past, present } = this.state
@@ -229,6 +227,10 @@ export default class RichTextEditor extends React.Component {
     }
   }
 
+  popSelectionChange = () => {
+    this.props.onSelectionChange && this.props.onSelectionChange(this.getPresentState())
+  }
+
   // ------------input-------------
   handleInput = e => {
     if (!this.isInputtingComposition) {
@@ -253,7 +255,11 @@ export default class RichTextEditor extends React.Component {
   toggleCompositionFlag = () => this.isInputtingComposition = !this.isInputtingComposition // for Chinese characters
 
   setParasAndSelection = (paras, selection) => {
-    this.pushPresentState({ paras, selection })
+    this.pushPresentState({ paras, selection }).then(this.popContentChange)
+  }
+
+  popContentChange = () => {
+    this.props.onContentChange && this.props.onContentChange(this.getPresentState())
   }
 
   // ---------key handler----------
@@ -409,5 +415,6 @@ RichTextEditor.propTypes = {
   style: PropTypes.object,
   store: PropTypes.object,
   onSelectionChange: PropTypes.func,
+  onContentChange: PropTypes.func,
   editorBridgeBuilder: PropTypes.func,
 }
