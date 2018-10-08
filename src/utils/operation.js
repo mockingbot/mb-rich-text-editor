@@ -74,7 +74,7 @@ const isSpanInsideBoundary = (pi, si, { start: [ spi, ssi ], end: [ epi, esi ] }
 
 const attrsThatAffectLineHeight = ['fontFamily', 'fontSize']
 const checkIfLineHeightIsNormal = (fontFamily, fontSize, lineHeight) => {
-  const normalLineHeight = measureNormalLineHeight(fontFamily, fontSize)
+  const normalLineHeight = Math.ceil(measureNormalLineHeight(fontFamily, fontSize))
   return normalLineHeight === lineHeight
 }
 
@@ -89,7 +89,7 @@ const setSpanAttr = ({ span, attr, value }) => {
 
   if (attrsThatAffectLineHeight.includes(attr) && checkIfLineHeightIsNormal(newSpan.fontFamily, newSpan.fontSize, newSpan.lineHeight)) {
     newSpan[attr] = value
-    newSpan.lineHeight = measureNormalLineHeight(newSpan.fontFamily, newSpan.fontSize)
+    newSpan.lineHeight = Math.ceil(measureNormalLineHeight(newSpan.fontFamily, newSpan.fontSize))
   } else if (attrsThatBehaveToggle.includes(attr)) {
     newSpan[attr] =
       value === span[attr] ?

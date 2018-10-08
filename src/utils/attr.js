@@ -33,10 +33,10 @@ export const getSingleSpanAttr = (s, attr) => {
     return (
       (!spanLineHeight || spanLineHeight === 'normal')
       ?
-      measureNormalLineHeight(
+      Math.ceil(measureNormalLineHeight(
         getSingleSpanAttr(s, 'fontFamily'),
         getSingleSpanAttr(s, 'fontSize')
-      )
+      ))
       :
       spanLineHeight
     )

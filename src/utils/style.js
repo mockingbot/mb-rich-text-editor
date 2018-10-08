@@ -101,6 +101,6 @@ export const getHTML = (paras, selection, getPlainTextAlso) => {
 }
 
 export const isPastedDataFromInside = data => {
-  const MB_SYMBOL_PATTERN = new RegExp(INSIDE_CONTENT_SYMBOL)
+  const MB_SYMBOL_PATTERN = new RegExp(EDITOR_INLINE_SPAN_CLASS_NAME)
   return MB_SYMBOL_PATTERN.test(data)
 }
