@@ -93,10 +93,10 @@ export default class RichTextEditor extends React.Component {
     // press `Enter` key to mount editor incidently get captured by $editor in
     // `input` event, making all selected content to be changed.
     // so let setTimeout handle this order
-    setTimeout(() => this.restoreSelection(), 0)
+    setTimeout(() => this.restoreSelection().then(this.popSelectionChange), 0)
   }
 
-  buildEditorBridge = editorBridgeBuilder => editorBridgeBuilder(this.getPresentState, this.handleRich)
+  buildEditorBridge = editorBridgeBuilder => editorBridgeBuilder(this.getPresentState, this.handleSetRichAttr)
 
   componentDidUpdate() {
     // patch: React somehow did not re-render correctly under this circumstance
@@ -107,7 +107,7 @@ export default class RichTextEditor extends React.Component {
       // error may occur if update is not as expected, so we fire a manually update
       console.warn(e)
       this.manuallyUpdate()
-    })
+    }).then(this.popSelectionChange)
   }
 
   manuallyUpdate = () => this.$editor.innerHTML = getHTML(this.getPresentState().paras)
@@ -138,7 +138,9 @@ export default class RichTextEditor extends React.Component {
     resolve()
   })
 
-  handleRich = (attr, value, manageHistoryInUndo = 'add') => {
+  popSelectionChange = () => this.props.onSelectionChange && this.props.onSelectionChange()
+
+  handleSetRichAttr = (attr, value, manageHistoryInUndo = 'add') => {
     const { past, present } = this.state
     const { paras: prevParas, selection: prevSelection } = present
 
@@ -406,6 +408,6 @@ export default class RichTextEditor extends React.Component {
 RichTextEditor.propTypes = {
   style: PropTypes.object,
   store: PropTypes.object,
-  handleInput: PropTypes.func,
+  onSelectionChange: PropTypes.func,
   editorBridgeBuilder: PropTypes.func,
 }
