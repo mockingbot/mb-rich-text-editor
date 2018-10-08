@@ -8,5 +8,5 @@ const setAttr = attrSetter => (attr, value, manageHistoryInUndo) => attrSetter(a
 
 export const editorBridgeBuilder = (storeGetter, attrSetter) => {
   editorBridge.getStore = getStore(storeGetter)
-  editorBridge.setRich = setAttr(attrSetter)
+  editorBridge.setAttr = setAttr(attrSetter)
 }
