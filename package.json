@@ -1,6 +1,6 @@
 {
   "name": "mb-rich-text-editor",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "author": "Xdudu",
   "license": "MIT",
@@ -58,7 +58,7 @@
     "dist"
   ],
   "dependencies": {
-    "measure-normal-line-height": "1.0.1",
+    "measure-normal-line-height": "1.0.2",
     "postcss-nested": "^4.1.0",
     "stop-react-event-propagation": "1.0.1"
   }
