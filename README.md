@@ -153,4 +153,4 @@ Reporting bugs and starting issues will always be appreciated.
 
 ## License
 
-MIT © [Xdudu](https://github.com/Xdudu)
+GPL © [Xdudu](https://github.com/Xdudu)

@@ -1,9 +1,9 @@
 {
   "name": "mb-rich-text-editor",
   "version": "1.0.8",
-  "description": "",
+  "description": "A Sketch-like text editor.",
   "author": "Xdudu",
-  "license": "MIT",
+  "license": "GPL",
   "repository": "https://github.com/mockingbot/mb-rich-text-editor",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
