@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import { configs } from './config'
@@ -19,7 +19,7 @@ import './index.css'
 const HISTORY_CAPACITY = 50
 
 
-export default class RichTextEditor extends React.Component {
+export default class RichTextEditor extends PureComponent {
   constructor(props) {
     super()
 

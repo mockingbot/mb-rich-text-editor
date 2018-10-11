@@ -3,6 +3,10 @@
   border-color: transparent;
   user-select: text;
 
+  p {
+    margin: 0;
+  }
+
   p:last-child {
     margin-bottom: 0 !important;
   }

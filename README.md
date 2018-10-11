@@ -16,7 +16,7 @@ As I mentioned in previous paragraph, this editor aims at people who need a simi
 - [x] treats text like layers but not articles (focus on what text itself looks like, no concepts like 'ordered list' here)
 - [x] text is text, no links or images can be inserted (if you consider text as layers, this one is not hard to follow)
 
-or you can [try it here online]() to check all features. You should feel comfortable playing it if you have experience with Sketch. Also it's not hard to notice that you can input value for attributes when you want to style a selected area, for selection is safe inside the editor, it won't get lost when you focus on other inputs ;)
+or you can [try it here online](https://mockingbot.github.io/mb-rich-text-editor) to check all features. You should feel comfortable playing it if you have experience with Sketch. Also it's not hard to notice that you can input value for attributes when you want to style a selected area, for selection is safe inside the editor, it won't get lost when you focus on other inputs ;)
 
 ## Install
 
