@@ -122,6 +122,11 @@ input, button {
   }
 }
 
+
+.style-bold {
+  font-weight: 700;
+}
+
 .style-italic {
   font-style: italic;
 }

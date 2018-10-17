@@ -10,6 +10,7 @@ import { cutSelection, parsePastedHTML } from './utils/clipboard'
 import { insertHTMLContent, insertTextContent } from './utils/insertion'
 import stopReactEventPropagation from 'stop-react-event-propagation'
 import { setParasAttr } from './utils/operation'
+import { getRichTextAttr } from './utils/attr'
 
 import { EDITOR_CLASS_NAME } from './constant'
 
@@ -167,6 +168,36 @@ export default class RichTextEditor extends PureComponent {
     })
   }
 
+  handleSetBoldType = () => {
+    const { paras, selection } = this.getPresentState()
+    const boldType = getRichTextAttr(paras, selection.start, 'boldType')
+    this.handleSetRichAttr('boldType', 1 - boldType)
+  }
+
+  handleSetItalic = () => {
+    const { paras, selection } = this.getPresentState()
+    const fontStyle = getRichTextAttr(paras, selection.start, 'fontStyle')
+    fontStyle !== 'italic'
+      ? this.handleSetRichAttr('fontStyle', 'italic')
+      : this.handleSetRichAttr('fontStyle', 'normal')
+  }
+
+  handleSetLineThrough = () => {
+    const { paras, selection } = this.getPresentState()
+    const textDecoration = getRichTextAttr(paras, selection.start, 'textDecoration')
+    textDecoration !== 'line-through'
+      ? this.handleSetRichAttr('textDecoration', 'line-through')
+      : this.handleSetRichAttr('textDecoration', 'none')
+  }
+
+  handleSetUnderline = () => {
+    const { paras, selection } = this.getPresentState()
+    const textDecoration = getRichTextAttr(paras, selection.start, 'textDecoration')
+    textDecoration !== 'underline'
+      ? this.handleSetRichAttr('textDecoration', 'underline')
+      : this.handleSetRichAttr('textDecoration', 'none')
+  }
+
   // ---------selection----------
   // selectionchange gets fired when inputing, selecting and manually setting `Selection`
   handleSelectionChange = e => {
@@ -270,6 +301,23 @@ export default class RichTextEditor extends PureComponent {
       // cmd/ctrl + a broke in firefox, so we handle select-all manually
       e.preventDefault()
       this.setSelection(getSelectionForSelectAll(this.getPresentState().paras))
+    }
+
+    if (e.key === 'b' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault()
+      this.handleSetBoldType()
+    }
+    if (e.key === 'i' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault()
+      this.handleSetItalic()
+    }
+    if (e.key === 'u' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault()
+      this.handleSetUnderline()
+    }
+    if (e.key === 's' && (e.ctrlKey || e.metaKey) && e.shiftKey) {
+      e.preventDefault()
+      this.handleSetLineThrough()
     }
 
     if (e.key === 'z' && (e.ctrlKey || e.metaKey)) {

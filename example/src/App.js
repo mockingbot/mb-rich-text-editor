@@ -43,6 +43,11 @@ export default class App extends Component {
   handleLineHeightChange = val => this.handleChange('lineHeight', val)
   handleParaSpacingChange = val => this.handleChange('paraSpacing', val)
 
+  handleBold = () => {
+    const { boldType } = this.getAttrs(this.state.editorStore)
+    this.handleChange('boldType', 1 - boldType)
+  }
+
   handleItalic = () => {
     const { fontStyle } = this.getAttrs(this.state.editorStore)
     this.handleChange('fontStyle', fontStyle !== 'italic' ? 'italic' : 'normal')
@@ -67,6 +72,7 @@ export default class App extends Component {
       fontWeight,
       fontSize,
       color,
+      boldType,
       fontStyle,
       textDecoration,
       letterSpacing,
@@ -134,6 +140,10 @@ export default class App extends Component {
           </div>
           <div className="setter-item">
             <div className="setter-item-name">Style</div>
+            <span
+              className={`text-icon style-bold${boldType === 1 ? ' active' : ''}`}
+              onClick={this.handleBold}
+              >T</span>
             <span
               className={`text-icon style-italic${fontStyle === 'italic' ? ' active' : ''}`}
               onClick={this.handleItalic}
