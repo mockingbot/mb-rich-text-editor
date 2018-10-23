@@ -78,23 +78,12 @@ const checkIfLineHeightIsNormal = (fontFamily, fontSize, lineHeight) => {
   return normalLineHeight === lineHeight
 }
 
-const attrsThatBehaveToggle = ['fontStyle', 'textDecoration']
-const getToggleTypeAttrDefaultValue = attr => {
-  if (attr === 'fontStyle') return 'normal'
-  if (attr === 'textDecoration') return 'none'
-}
-
 const setSpanAttr = ({ span, attr, value }) => {
   const newSpan = { ...span }
 
   if (attrsThatAffectLineHeight.includes(attr) && checkIfLineHeightIsNormal(newSpan.fontFamily, newSpan.fontSize, newSpan.lineHeight)) {
     newSpan[attr] = value
     newSpan.lineHeight = Math.ceil(measureNormalLineHeight(newSpan.fontFamily, newSpan.fontSize))
-  } else if (attrsThatBehaveToggle.includes(attr)) {
-    newSpan[attr] =
-      value === span[attr] ?
-      getToggleTypeAttrDefaultValue(attr)
-      : value
   } else {
     newSpan[attr] = value
   }
