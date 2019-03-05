@@ -1,7 +1,6 @@
 import { SPAN_ATTRS } from './attr'
 import { getFontWeightStrDepandOnBoldType } from './font'
 
-
 const trimStyleValue = (_attr, _val) => {
   const attr = formatAttr(_attr)
 
@@ -19,7 +18,7 @@ const formatAttr = attr => {
   return attr
 }
 
-const genSpanStyleObj = (style, fallbackStyle, boldType) => {
+const genSpanStyleObj = (style, fallbackStyle, boldType, elFontSizeNum) => {
   let styleObj = {}
   SPAN_ATTRS.forEach(attr => {
     const val = trimStyleValue(attr, style[attr]) || fallbackStyle[attr]
@@ -53,7 +52,7 @@ export const genParasFromHTML = ($text, lastFocusStyle) => {
       } else {
         spans = $spans.map($s => {
           return {
-            text: $s.innerText.replace(/(\r\n|\n|\r)/gm, ''), 
+            text: $s.innerText.replace(/(\r\n|\n|\r)/gm, ''),
             // innerText but not innerHTML: because there may be other elements inside span, such as <u>
             // clear any return character
             boldType: Number($s.dataset.boldtype) ? 1 : 0,

@@ -226,10 +226,20 @@ const extractFontSize = (tag, stackStyles) => {
     match = tag.match(new RegExp('font-size' + INLINE_STYLE_PATTERN.source))
   }
 
+  // 为了解决小字体，得到真实的字体大小
+  const match_display = tag.match(new RegExp('display' + INLINE_STYLE_PATTERN.source))
+  const match_transform = tag.match(new RegExp('transform' + INLINE_STYLE_PATTERN.source))
+  const reg = /(\d*.\d*)(?=,)/g
+  const scale = !match_transform ? '1' : (match_transform[1] && match_transform[1].match(reg))
+
   if (!match) return /^h\d$/.test(tagName) ? getHeaderFontSize(tagName) : parentSize
+  const fontSize = parseInt(match[1].replace(/px$/, ''))
+  const elFontSizeNum = Math.round(fontSize * scale)
+
+  const isGetSmaller = elFontSizeNum && elFontSizeNum < 12 && match_display && match_display[1] === 'inline-block'
 
   if (/px$/.test(match[1])) {
-    return parseInt(match[1].replace(/px$/, ''))
+    return isGetSmaller ? elFontSizeNum : parseInt(match[1].replace(/px$/, ''))
   } else if (!isNaN(match[1])) {
     return getFontSizeFromNumeric(match[1])
   } else if (/rem$/.test(match[1])) {

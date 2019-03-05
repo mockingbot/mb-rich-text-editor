@@ -249,6 +249,6 @@ const FONT_WEIGHT_MAP = {
   ],
 }
 
-const FONT_SIZE_LIST = [12, 13, 14, 16, 18, 20, 28, 36, 48, 72]
+const FONT_SIZE_LIST = [6, 8, 10, 11, 12, 13, 14, 16, 18, 20, 28, 36, 48, 72]
 
 const THEME_COLORS = ['#ffffff', '#d55252', '#f9984e', '#ddc848', '#41915d', '#2f64b5', '#a974dc', '#dc6690', '#b9b3af']

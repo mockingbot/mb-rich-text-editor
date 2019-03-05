@@ -1,8 +1,9 @@
 import measureNormalLineHeight from 'measure-normal-line-height'
 
+import { TRANSFORM } from '../constant'
 import { configs } from '../config'
-const DEFAULT_STYLE = configs.defaultStyle
 
+const DEFAULT_STYLE = configs.defaultStyle
 
 export const SPAN_ATTRS = [
   'fontFamily',
@@ -12,7 +13,12 @@ export const SPAN_ATTRS = [
   'fontStyle',
   'textDecoration',
   'letterSpacing',
-  'lineHeight'
+  'lineHeight',
+  'display',
+  'transform',
+  'transformOrigin',
+  'whiteSpace',
+  'width'
 ]
 
 const getParaAttr = (paras, delegatePIndex = [ 0 ], attr) => {
@@ -28,6 +34,11 @@ export const getSingleSpanAttr = (s, attr) => {
   if (attr === 'fontStyle') return s.fontStyle || DEFAULT_STYLE.fontStyle
   if (attr === 'textDecoration') return s.textDecoration || DEFAULT_STYLE.textDecoration
   if (attr === 'letterSpacing') return s.letterSpacing || DEFAULT_STYLE.letterSpacing
+  if (attr === 'display') return s.display || DEFAULT_STYLE.display
+  if (attr === 'whiteSpace') return s.whiteSpace || DEFAULT_STYLE.whiteSpace
+  if (attr === 'width') return s.width || DEFAULT_STYLE.width
+  if (attr === 'transform') return s.transform || DEFAULT_STYLE.transform
+  if (attr === 'transformOrigin') return s.transformOrigin || DEFAULT_STYLE.transformOrigin
   if (attr === 'lineHeight') {
     const spanLineHeight = s.lineHeight
     return (
@@ -37,8 +48,9 @@ export const getSingleSpanAttr = (s, attr) => {
         getSingleSpanAttr(s, 'fontFamily'),
         getSingleSpanAttr(s, 'fontSize')
       ))
-      :
-      spanLineHeight
+      : s.fontSize < 12
+      ?  Math.floor((12 * TRANSFORM[s.fontSize]) / 0.7)
+      : spanLineHeight
     )
   }
 }
@@ -64,8 +76,12 @@ export const getRichTextAttr = (paras, selectionStartIndex, attr) => {
     textDecoration: getSpanAttr(paras, selectionStartIndex, 'textDecoration'),
     letterSpacing: getSpanAttr(paras, selectionStartIndex, 'letterSpacing'),
     lineHeight: getSpanAttr(paras, selectionStartIndex, 'lineHeight'),
-
-    paraSpacing: getParaAttr(paras, selectionStartIndex, 'paraSpacing')
+    display: getSpanAttr(paras, selectionStartIndex, 'display'),
+    transform: getSpanAttr(paras, selectionStartIndex, 'transform'),
+    paraSpacing: getParaAttr(paras, selectionStartIndex, 'paraSpacing'),
+    whiteSpace: getParaAttr(paras, selectionStartIndex,'whiteSpace'),
+    width: getParaAttr(paras, selectionStartIndex,'width'),
+    height: getParaAttr(paras, selectionStartIndex,'height'),
   }
 
   return attr ? attrs[attr] : attrs
