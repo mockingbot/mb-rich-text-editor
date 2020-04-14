@@ -5,9 +5,6 @@ import { getSingleSpanAttr } from './attr'
 import { getEscapedText } from './text'
 import { getFontWeightNumDepandOnBoldType } from './font'
 
-
-const { getStyleStr: customizeStyleConfigs } = configs
-
 const getHyphenStyleName = camelCaseStyleName => camelCaseStyleName.replace(/[A-Z]/g, capital => `-${capital.toLowerCase()}`)
 
 const genInlineStyle = styleObj => {
@@ -27,8 +24,8 @@ export const genParaStyle = p => {
 }
 
 const getFontFamily = (fontFamily, fontWeight) => (
-  customizeStyleConfigs.fontFamily ?
-    customizeStyleConfigs.fontFamily(fontFamily, fontWeight)
+  configs.getStyleStr.fontFamily ?
+    configs.getStyleStr.fontFamily(fontFamily, fontWeight)
     : fontFamily
 )
 
