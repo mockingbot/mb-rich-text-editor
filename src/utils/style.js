@@ -26,9 +26,9 @@ export const genParaStyle = p => {
   }
 }
 
-const getFontFamily = fontFamily => (
+const getFontFamily = (fontFamily, fontWeight) => (
   customizeStyleConfigs.fontFamily ?
-    customizeStyleConfigs.fontFamily(fontFamily)
+    customizeStyleConfigs.fontFamily(fontFamily, fontWeight)
     : fontFamily
 )
 
@@ -38,7 +38,7 @@ export const genSpanStyle = (s) => {
   const boldType = getSingleSpanAttr(s, 'boldType')
 
   return {
-    fontFamily: getFontFamily(fontFamily),
+    fontFamily: getFontFamily(fontFamily, fontWeight),
     fontWeight: getFontWeightNumDepandOnBoldType(fontWeight, boldType),
     fontSize: getSingleSpanAttr(s, 'fontSize') + 'px',
     color: getSingleSpanAttr(s, 'color'),
