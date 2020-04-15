@@ -36,7 +36,7 @@ export const genSpanStyle = (s) => {
 
   return {
     fontFamily: getFontFamily(fontFamily, fontWeight),
-    fontWeight: getFontWeightNumDepandOnBoldType(fontWeight, boldType),
+    fontWeight: getFontWeightNumDepandOnBoldType(fontWeight, boldType, fontFamily),
     fontSize: getSingleSpanAttr(s, 'fontSize') + 'px',
     color: getSingleSpanAttr(s, 'color'),
     fontStyle: getSingleSpanAttr(s, 'fontStyle'),
