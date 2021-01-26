@@ -1,4 +1,4 @@
-const FONT_WEIGHT_VALUE_MAP = { regular: 400, light: 300, bold: 700 }
+const FONT_WEIGHT_VALUE_MAP = { thin: 100, extraLight: 200, light: 300, regular: 400, medium: 500, semiBold: 600, bold: 700, extraBold: 800, black: 900 }
 
 export const getFontWeightNumDepandOnBoldType = (weightStr, boldType) => {
   const weightNum = FONT_WEIGHT_VALUE_MAP[ weightStr ]
